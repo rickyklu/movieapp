@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
-// import surveyReducer from './surveyReducer';
+import movieReducer from './movieReducer';
+import modalReducer from './modalReducer';
 
 export default combineReducers({
-	auth: authReducer
+	auth: authReducer,
+	movies: movieReducer,
+	modal: modalReducer
 });

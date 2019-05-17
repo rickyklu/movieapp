@@ -6,12 +6,8 @@ import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
 import reducers from './reducers';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-/* develpment testing 2 lines below*/
-import axios from 'axios';
-window.axios = axios;
-/* testing 2 lines above*/
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const composeEnhancers =
 	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -19,6 +15,7 @@ const composeEnhancers =
 				// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
 		  })
 		: compose;
+
 const enhancer = composeEnhancers(
 	applyMiddleware(reduxThunk)
 	// other store enhancers if any

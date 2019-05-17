@@ -12,6 +12,7 @@ const Review = () => <h2>Review</h2>;
 class App extends Component {
 	componentDidMount() {
 		this.props.fetchUser();
+		// this.props.fetchMovies();
 	}
 
 	render() {
