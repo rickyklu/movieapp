@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Modal, Button, Image } from 'react-bootstrap';
 
 import * as actions from '../actions';
-import { movieKey } from '../config/keys';
+const keys = require('../config/keys');
 // import MovieModal from './MovieModal';
 
 class MovieItem extends Component {
@@ -29,9 +29,9 @@ class MovieItem extends Component {
 	handleShow(e) {
 		e.preventDefault();
 
-		const url = `https://api.themoviedb.org/3/movie/${
-			this.props.id
-		}?api_key=${movieKey}`;
+		const url = `https://api.themoviedb.org/3/movie/${this.props.id}?api_key=${
+			keys.movieKey
+		}`;
 
 		axios.get(url).then(res => {
 			// console.log(res.data);
