@@ -7,8 +7,7 @@ class MovieList extends Component {
 	constructor(props) {
 		super(props);
 
-		this.renderMovies = this.renderMovies.bind(this);
-		this.getMovies = this.getMovies.bind(this);
+		this.renderMovieCards = this.renderMovieCards.bind(this);
 	}
 
 	componentDidMount() {
@@ -17,7 +16,7 @@ class MovieList extends Component {
 		}
 	}
 
-	getMovies() {
+	renderMovieCards() {
 		// create movie cards
 		if (this.props.movies.length) {
 			return this.props.movies.map(movie => (
@@ -32,14 +31,10 @@ class MovieList extends Component {
 		}
 	}
 
-	renderMovies() {
-		// create element with movie data
-	}
-
 	render() {
 		return (
-			<div className="movieList">
-				<div className="card-columns">{this.getMovies()}</div>
+			<div className="movieList" style={{ marginTop: '15px' }}>
+				<div className="card-columns">{this.renderMovieCards()}</div>
 			</div>
 		);
 	}

@@ -1,12 +1,12 @@
+// individual movie cards that show on the movieList
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 // import  from 'react-bootstrap/Modal';
 import { Modal, Button, Image } from 'react-bootstrap';
 
 import * as actions from '../actions';
-const keys = require('../config/keys');
+import * as keys from '../config/keys';
 // import MovieModal from './MovieModal';
 
 class MovieItem extends Component {
@@ -28,36 +28,12 @@ class MovieItem extends Component {
 
 	handleShow(e) {
 		e.preventDefault();
-
-		const url = `https://api.themoviedb.org/3/movie/${this.props.id}?api_key=${
-			keys.movieKey
-		}`;
-
-		axios.get(url).then(res => {
-			// console.log(res.data);
-			this.setState({ show: true, data: res.data });
-		});
+		this.props.fetchSingleMovie(this.props.id);
+		this.setState({ show: true, data: this.props.singleMovie });
 	}
 
 	handleModal(data) {
-		if (!data) {
-			return (
-				<Modal show={this.state.show} onHide={this.handleClose}>
-					<Modal.Header closeButton>
-						<Modal.Title>Modal heading</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-					<Modal.Footer>
-						<Button variant="secondary" onClick={this.handleClose}>
-							Close
-						</Button>
-						<Button variant="primary" onClick={this.handleClose}>
-							Save Changes
-						</Button>
-					</Modal.Footer>
-				</Modal>
-			);
-		} else {
+		if (data) {
 			return (
 				<Modal
 					show={this.state.show}
@@ -77,13 +53,11 @@ class MovieItem extends Component {
 						<Button variant="secondary" onClick={this.handleClose}>
 							Close
 						</Button>
-						<Button variant="primary" onClick={this.handleClose}>
-							Save Changes
-						</Button>
 					</Modal.Footer>
 				</Modal>
 			);
 		}
+		return null;
 	}
 
 	render() {
@@ -110,7 +84,11 @@ class MovieItem extends Component {
 	}
 }
 
+const mapStateToProps = state => {
+	return { singleMovie: state.singleMovie };
+};
+
 export default connect(
-	null,
+	mapStateToProps,
 	actions
 )(MovieItem);

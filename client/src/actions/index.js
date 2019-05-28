@@ -8,20 +8,25 @@ import {
 } from './types';
 import { movieKey } from '../config/keys';
 
+const movieRequest = axios.create({
+	baseURL: 'https://api.themoviedb.org/3/'
+});
+
 export const fetchUser = () => async dispatch => {
 	const res = await axios.get('/api/current_user');
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
 
 export const fetchMovies = () => async dispatch => {
-	const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${movieKey}`;
-	const res = await axios.get(url);
+	// get now playing movies
+	const path = `/movie/now_playing?api_key=${movieKey}`;
+	const res = await movieRequest.get(path);
 	dispatch({ type: FETCH_MOVIES, payload: res.data.results });
 };
 
 export const fetchSingleMovie = movieId => async dispatch => {
-	const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${movieKey}`;
-	const res = await axios.get(url);
+	const path = `/movie/${movieId}?api_key=${movieKey}`;
+	const res = await movieRequest.get(path);
 	dispatch({ type: FETCH_SINGLE_MOVIE, payload: res.data });
 };
 
