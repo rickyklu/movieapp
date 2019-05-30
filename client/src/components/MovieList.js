@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MovieItem from './MovieItem';
+import MovieCard from './MovieCard';
 import * as actions from '../actions';
 
 class MovieList extends Component {
@@ -14,13 +14,16 @@ class MovieList extends Component {
 		if (!this.props.movies.length) {
 			this.props.fetchMovies();
 		}
+		if (this.props.singleMovie) {
+			this.props.singleMovie = {};
+		}
 	}
 
 	renderMovieCards() {
 		// create movie cards
 		if (this.props.movies.length) {
 			return this.props.movies.map(movie => (
-				<MovieItem
+				<MovieCard
 					key={movie.id}
 					id={movie.id}
 					title={movie.title}

@@ -1,15 +1,16 @@
 // individual movie cards that show on the movieList
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import  from 'react-bootstrap/Modal';
-import { Modal, Button, Image } from 'react-bootstrap';
+// import { Modal, Button, Image } from 'react-bootstrap';
 
 import * as actions from '../actions';
-import * as keys from '../config/keys';
-// import MovieModal from './MovieModal';
+// import * as keys from '../config/keys';
+import DetailedMovie from './DetailedMovie';
 
-class MovieItem extends Component {
+class MovieCard extends Component {
 	constructor(props) {
 		super(props);
 		this.handleShow = this.handleShow.bind(this);
@@ -33,36 +34,36 @@ class MovieItem extends Component {
 	}
 
 	handleModal(data) {
-		if (data) {
-			return (
-				<Modal
-					show={this.state.show}
-					onHide={this.handleClose}
-					scrollable={true}
-					size="lg"
-				>
-					<Modal.Header closeButton>
-						<Modal.Title>{data.title}</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						<Image src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
-						<p>{data.overview}</p>
-						<a href={`https://www.imdb.com/title/${data.imdb_id}`}>IMDB Link</a>
-					</Modal.Body>
-					<Modal.Footer>
-						<Button variant="secondary" onClick={this.handleClose}>
-							Close
-						</Button>
-					</Modal.Footer>
-				</Modal>
-			);
-		}
-		return null;
+		// if (data) {
+		// 	return (
+		// 		<Modal
+		// 			show={this.state.show}
+		// 			onHide={this.handleClose}
+		// 			scrollable={true}
+		// 			size="lg"
+		// 		>
+		// 			<Modal.Header closeButton>
+		// 				<Modal.Title>{data.title}</Modal.Title>
+		// 			</Modal.Header>
+		// 			<Modal.Body>
+		// 				<Image src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
+		// 				<p>{data.overview}</p>
+		// 				<a href={`https://www.imdb.com/title/${data.imdb_id}`}>IMDB Link</a>
+		// 			</Modal.Body>
+		// 			<Modal.Footer>
+		// 				<Button variant="secondary" onClick={this.handleClose}>
+		// 					Close
+		// 				</Button>
+		// 			</Modal.Footer>
+		// 		</Modal>
+		// 	);
+		// }
+		// return null;
 	}
 
 	render() {
 		return (
-			<div className="movieItem">
+			<div className="movieCard">
 				<div className="card text-white bg-secondary mb-3" style={{}}>
 					<img
 						src={`https://image.tmdb.org/t/p/w500${this.props.poster}`}
@@ -73,9 +74,9 @@ class MovieItem extends Component {
 					<div className="card-body">
 						<h5 className="card-title">{this.props.title}</h5>
 						<p className="card-text">{this.props.overview}</p>
-						<button className="btn btn-primary" onClick={this.handleShow}>
+						<Link to={`/movie/${this.props.id}`} className="btn btn-primary">
 							More Info...
-						</button>
+						</Link>
 					</div>
 				</div>
 				{this.handleModal(this.state.data)}
@@ -89,6 +90,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(
-	mapStateToProps,
+	null,
 	actions
-)(MovieItem);
+)(MovieCard);
