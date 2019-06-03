@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MovieCard from './MovieCard';
 import * as actions from '../actions';
-import * as keys from '../config/keys';
 
 class MovieList extends Component {
 	constructor(props) {
@@ -36,7 +35,6 @@ class MovieList extends Component {
 	}
 
 	render() {
-		console.log(keys);
 		return (
 			<div className="movieList" style={{ marginTop: '15px' }}>
 				<h1>Popular Movies</h1>
