@@ -4,9 +4,10 @@ import {
 	FETCH_MOVIES,
 	FETCH_SINGLE_MOVIE,
 	SHOW_MODAL,
-	HIDE_MODAL
+	HIDE_MODAL,
+	FETCH_CREDITS
 } from './types';
-import { movieKey } from '../config/keys';
+import * as keys from '../config/keys';
 
 const movieRequest = axios.create({
 	baseURL: 'https://api.themoviedb.org/3/'
@@ -19,16 +20,25 @@ export const fetchUser = () => async dispatch => {
 
 export const fetchMovies = () => async dispatch => {
 	// get now playing movies
-	const path = `/movie/now_playing?api_key=${movieKey}`;
+	const path = `/movie/now_playing?api_key=${keys.movieKey}`;
 	const res = await movieRequest.get(path);
 	dispatch({ type: FETCH_MOVIES, payload: res.data.results });
 };
 
 export const fetchSingleMovie = movieId => async dispatch => {
-	const path = `/movie/${movieId}?api_key=${movieKey}`;
+	const path = `/movie/${movieId}?api_key=${keys.movieKey}`;
 	const res = await movieRequest.get(path);
 	dispatch({ type: FETCH_SINGLE_MOVIE, payload: res.data });
 };
+
+
+export const fetchCredits = movieId => async dispatch => {
+	const path = `/movie/${movieId}/credits?api_key=${keys.movieKey}`;
+	const res = await movieRequest.get(path);
+	dispatch({ type: FETCH_CREDITS, payload: res.data });
+};
+
+
 
 export const showModal = movieId => dispatch => {
 	dispatch({ type: SHOW_MODAL, modalType: 'MOVIE_CARD', movieId: movieId });

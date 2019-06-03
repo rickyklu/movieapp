@@ -37,7 +37,8 @@ class MovieList extends Component {
 	render() {
 		return (
 			<div className="movieList" style={{ marginTop: '15px' }}>
-				<div className="card-columns">{this.renderMovieCards()}</div>
+				<h1>Popular Movies</h1>
+				<div className="row cardContainers">{this.renderMovieCards()}</div>
 			</div>
 		);
 	}
