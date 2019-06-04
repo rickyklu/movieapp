@@ -37,7 +37,7 @@ class MovieList extends Component {
 
 	render() {
 		console.log('process test log');
-		console.log(process.env.NODE_ENV);
+		console.log(process.env);
 		return (
 			<div className="movieList" style={{ marginTop: '15px' }}>
 				<h1>Popular Movies</h1>
