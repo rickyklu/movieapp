@@ -65,12 +65,15 @@ class MovieCard extends Component {
 	shortenText(text) {
 		let wordLength = 50;
 		if (text.split(' ').length > wordLength) {
-			return text.split(' ').slice(0, 50).join(' ') + "...";
-		}
-		else {
+			return (
+				text
+					.split(' ')
+					.slice(0, 50)
+					.join(' ') + '...'
+			);
+		} else {
 			return text;
 		}
-
 	}
 
 	render() {
@@ -78,17 +81,19 @@ class MovieCard extends Component {
 			<div className="movieCard col-sm-6">
 				<div className="card text-white bg-secondary mb-3" style={{}}>
 					<div className="row">
-						<div className="cardImage col-sm-4">
+						<div className="cardImage d-flex col-sm-4">
 							<img
 								src={`https://image.tmdb.org/t/p/w500${this.props.poster}`}
-								className="card-img-top"
+								className="card-img-top align-self-center"
 								alt="movie poster"
-								style={{ width: '100%' }}
+								style={{ width: '100%', marginLeft: '10px' }}
 							/>
 						</div>
 						<div className="card-body col-sm-8">
 							<h5 className="card-title">{this.props.title}</h5>
-							<p className="card-text">{this.shortenText(this.props.overview)}</p>
+							<p className="card-text">
+								{this.shortenText(this.props.overview)}
+							</p>
 							<Link to={`/movie/${this.props.id}`} className="btn btn-primary">
 								More Info...
 							</Link>

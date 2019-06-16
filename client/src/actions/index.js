@@ -31,14 +31,11 @@ export const fetchSingleMovie = movieId => async dispatch => {
 	dispatch({ type: FETCH_SINGLE_MOVIE, payload: res.data });
 };
 
-
 export const fetchCredits = movieId => async dispatch => {
 	const path = `/movie/${movieId}/credits?api_key=${keys.movieKey}`;
 	const res = await movieRequest.get(path);
 	dispatch({ type: FETCH_CREDITS, payload: res.data });
 };
-
-
 
 export const showModal = movieId => dispatch => {
 	dispatch({ type: SHOW_MODAL, modalType: 'MOVIE_CARD', movieId: movieId });
