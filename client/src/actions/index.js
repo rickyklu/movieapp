@@ -19,7 +19,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const fetchMovies = () => async dispatch => {
-	// get now playing movies
+	// get bunch of  movies
 	const path = `/movie/now_playing?api_key=${keys.movieKey}`;
 	const res = await movieRequest.get(path);
 	dispatch({ type: FETCH_MOVIES, payload: res.data.results });

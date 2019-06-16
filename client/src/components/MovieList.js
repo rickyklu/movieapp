@@ -2,45 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MovieCard from './MovieCard';
 import * as actions from '../actions';
-import * as keys from '../config/keys';
+import { Row, CardColumns } from 'react-bootstrap';
+// import * as keys from '../config/keys';
 
 class MovieList extends Component {
-	constructor(props) {
-		super(props);
-
-		this.renderMovieCards = this.renderMovieCards.bind(this);
+	async componentDidMount() {
+		// pull all movies currently playing
+		await this.props.fetchMovies();
+		// get the props, render list of moviecards
 	}
 
-	componentDidMount() {
-		if (!this.props.movies.length) {
-			this.props.fetchMovies();
-		}
-		if (this.props.singleMovie) {
-			this.props.singleMovie = {};
-		}
-	}
-
-	renderMovieCards() {
-		// create movie cards
-		if (this.props.movies.length) {
-			return this.props.movies.map(movie => (
-				<MovieCard
-					key={movie.id}
-					id={movie.id}
-					title={movie.title}
-					poster={movie.poster_path}
-					overview={movie.overview}
-				/>
-			));
+	renderMovieCards(listMovies) {
+		if (listMovies) {
+			const movieLi = listMovies.map(movie => {
+				return <MovieCard key={movie.id} movie={movie} />;
+			});
+			return movieLi;
+		} else {
+			return <div>nothing</div>;
 		}
 	}
 
 	render() {
 		return (
-			<div className="movieList" style={{ marginTop: '15px' }}>
-				<h1>Popular Movies</h1>
-				<div className="row cardContainers">{this.renderMovieCards()}</div>
-			</div>
+			<Row>
+				<CardColumns>{this.renderMovieCards(this.props.movies)}</CardColumns>
+			</Row>
 		);
 	}
 }
@@ -50,6 +37,7 @@ function mapStateToProps(state) {
 		movies: state.movies
 	};
 }
+
 export default connect(
 	mapStateToProps,
 	actions

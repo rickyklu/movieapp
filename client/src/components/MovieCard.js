@@ -1,66 +1,24 @@
 // individual movie cards that show on the movieList
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import  from 'react-bootstrap/Modal';
-// import { Modal, Button, Image } from 'react-bootstrap';
+import { Card, ListGroup } from 'react-bootstrap';
 
 import * as actions from '../actions';
 // import * as keys from '../config/keys';
-import DetailedMovie from './DetailedMovie';
 
+// receives movie object as props from MoveList
 class MovieCard extends Component {
-	constructor(props) {
-		super(props);
-		this.handleShow = this.handleShow.bind(this);
-		this.handleClose = this.handleClose.bind(this);
-		this.handleModal = this.handleModal.bind(this);
-		this.shortenText = this.shortenText.bind(this);
+	componentDidMount() {}
 
-		this.state = {
-			show: false,
-			data: {}
-		};
-	}
+	// renderText(movie) {
+	// 	const { title, id, vote_average, poster_path, overview } = movie;
+	// 	return (
 
-	handleClose() {
-		this.setState({ show: false, data: {} });
-	}
-
-	handleShow(e) {
-		e.preventDefault();
-		this.props.fetchSingleMovie(this.props.id);
-		this.setState({ show: true, data: this.props.singleMovie });
-	}
-
-	handleModal(data) {
-		// if (data) {
-		// 	return (
-		// 		<Modal
-		// 			show={this.state.show}
-		// 			onHide={this.handleClose}
-		// 			scrollable={true}
-		// 			size="lg"
-		// 		>
-		// 			<Modal.Header closeButton>
-		// 				<Modal.Title>{data.title}</Modal.Title>
-		// 			</Modal.Header>
-		// 			<Modal.Body>
-		// 				<Image src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
-		// 				<p>{data.overview}</p>
-		// 				<a href={`https://www.imdb.com/title/${data.imdb_id}`}>IMDB Link</a>
-		// 			</Modal.Body>
-		// 			<Modal.Footer>
-		// 				<Button variant="secondary" onClick={this.handleClose}>
-		// 					Close
-		// 				</Button>
-		// 			</Modal.Footer>
-		// 		</Modal>
-		// 	);
-		// }
-		// return null;
-	}
+	// 	);
+	// }
 
 	shortenText(text) {
 		let wordLength = 50;
@@ -77,38 +35,48 @@ class MovieCard extends Component {
 	}
 
 	render() {
+		const {
+			title,
+			vote_average,
+			poster_path,
+			overview,
+			release_date
+		} = this.props.movie;
+		const releaseDate = new Date(release_date);
+		const textStyle = {
+			textOverflow: 'ellipsis',
+			overflow: 'hidden',
+			fontSize: '0.8rem'
+		};
+
 		return (
-			<div className="movieCard col-sm-6">
-				<div className="card text-white bg-secondary mb-3" style={{}}>
-					<div className="row">
-						<div className="cardImage d-flex col-sm-4">
-							<img
-								src={`https://image.tmdb.org/t/p/w500${this.props.poster}`}
-								className="card-img-top align-self-center"
-								alt="movie poster"
-								style={{ width: '100%', marginLeft: '10px' }}
-							/>
-						</div>
-						<div className="card-body col-sm-8">
-							<h5 className="card-title">{this.props.title}</h5>
-							<p className="card-text">
-								{this.shortenText(this.props.overview)}
-							</p>
-							<Link to={`/movie/${this.props.id}`} className="btn btn-primary">
-								More Info...
-							</Link>
-						</div>
-					</div>
-				</div>
-				{this.handleModal(this.state.data)}
-			</div>
+			<Card className="">
+				<Card.Img
+					variant="top"
+					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+				/>
+				<Card.Body style={{ height: '250px' }}>
+					<Card.Title>
+						{title}
+						<br />
+						<small className="text-muted">
+							({releaseDate.toLocaleString('en-us', { month: 'long' })}{' '}
+							{releaseDate.getFullYear()})
+						</small>
+					</Card.Title>
+					<Card.Text style={textStyle}>{this.shortenText(overview)}</Card.Text>
+				</Card.Body>
+				<Card.Footer>
+					<small className="text-muted">Last updated 3 mins ago</small>
+				</Card.Footer>
+			</Card>
 		);
 	}
 }
 
-const mapStateToProps = state => {
-	return { singleMovie: state.singleMovie };
-};
+// function mapStateToProps(state) {
+// 	return { singleMovie: state.singleMovie };
+// };
 
 export default connect(
 	null,
