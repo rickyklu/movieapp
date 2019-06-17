@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // import  from 'react-bootstrap/Modal';
-import { Card, ListGroup } from 'react-bootstrap';
+import { Col, Card, Alert } from 'react-bootstrap';
 
 import * as actions from '../actions';
 // import * as keys from '../config/keys';
@@ -44,32 +44,35 @@ class MovieCard extends Component {
 		} = this.props.movie;
 		const releaseDate = new Date(release_date);
 		const textStyle = {
-			textOverflow: 'ellipsis',
-			overflow: 'hidden',
 			fontSize: '0.8rem'
 		};
 
 		return (
-			<Card className="">
-				<Card.Img
-					variant="top"
-					src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-				/>
-				<Card.Body style={{ height: '250px' }}>
-					<Card.Title>
-						{title}
-						<br />
-						<small className="text-muted">
-							({releaseDate.toLocaleString('en-us', { month: 'long' })}{' '}
-							{releaseDate.getFullYear()})
-						</small>
-					</Card.Title>
-					<Card.Text style={textStyle}>{this.shortenText(overview)}</Card.Text>
-				</Card.Body>
-				<Card.Footer>
-					<small className="text-muted">Last updated 3 mins ago</small>
-				</Card.Footer>
-			</Card>
+			<Col xs={12} md={6} lg={4} className="mt-2">
+				<Card className="">
+					<Card.Img
+						variant="top"
+						src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+					/>
+					<Card.Body style={{ height: '250px' }}>
+						<Card.Title>
+							{title}
+							<br />
+							<small className="text-muted" style={{ textSize: '0.9rem' }}>
+								({releaseDate.toLocaleString('en-us', { month: 'long' })}{' '}
+								{releaseDate.getFullYear()})
+							</small>
+						</Card.Title>
+						<Card.Text style={textStyle} className="text-break">
+							{this.shortenText(overview)}
+						</Card.Text>
+					</Card.Body>
+					<Alert variant="info">
+						<Alert.Link href="#">More Info</Alert.Link>{' '}
+						<small>Rating: {vote_average}/10</small>
+					</Alert>
+				</Card>
+			</Col>
 		);
 	}
 }

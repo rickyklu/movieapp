@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MovieCard from './MovieCard';
 import * as actions from '../actions';
-import { Row, CardColumns } from 'react-bootstrap';
+import { Row, CardDeck } from 'react-bootstrap';
 // import * as keys from '../config/keys';
 
 class MovieList extends Component {
@@ -26,7 +26,9 @@ class MovieList extends Component {
 	render() {
 		return (
 			<Row>
-				<CardColumns>{this.renderMovieCards(this.props.movies)}</CardColumns>
+				<CardDeck className="">
+					{this.renderMovieCards(this.props.movies)}
+				</CardDeck>
 			</Row>
 		);
 	}
